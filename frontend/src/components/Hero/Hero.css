@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --gold:   #c9a84c;
+  --gold2:  #f0d080;
+  --teal:   #00f5d4;
+  --purple: #7b5ea7;
+  --bg:     #04020f;
+  --text:   #f0ece4;
+}
+
+/* ── Shell ──────────────────────────────────────── */
+.hero {
+  position: relative;
+  width: 100%;
+  /* KEY FIX: exactly fills the viewport minus navbar */
+  height: calc(100vh - 68px);
+  min-height: 600px;
+  max-height: 100vh;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ── Grain ──────────────────────────────────────── */
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Scanline ───────────────────────────────────── */
+.hero__scanline {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  z-index: 3;
+  animation: scan 7s linear infinite;
+}
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+/* ── Brackets ───────────────────────────────────── */
+.bracket {
+  position: absolute;
+  z-index: 5;
+  width: 32px;
+  height: 32px;
+  border-color: rgba(201,168,76,0.38);
+  border-style: solid;
+}
+.bracket--tl { top: 20px;    left: 20px;   border-width: 1px 0 0 1px; }
+.bracket--tr { top: 20px;    right: 20px;  border-width: 1px 1px 0 0; }
+.bracket--bl { bottom: 58px; left: 20px;   border-width: 0 0 1px 1px; }
+.bracket--br { bottom: 58px; right: 20px;  border-width: 0 1px 1px 0; }
+
+/* ── Inner ──────────────────────────────────────── */
+.hero__inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 32px 80px;
+  width: 100%;
+}
+
+/* ── Eyebrow ────────────────────────────────────── */
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  animation: riseIn 1s 0.1s both;
+}
+.eyebrow__line {
+  width: 48px; height: 1px;
+}
+.eyebrow__line--l { background: linear-gradient(90deg, transparent, var(--gold)); }
+.eyebrow__line--r { background: linear-gradient(90deg, var(--gold), transparent); }
+.eyebrow__text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+/* ── Headline ───────────────────────────────────── */
+.hero__headline-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hl-top {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  /* BIGGER on desktop */
+  font-size: clamp(18px, 2.5vw, 36px);
+  color: rgba(240,236,228,0.45);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  animation: riseIn 1s 0.2s both;
+}
+
+.hl-main {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  /* MUCH BIGGER — fills the screen width */
+  font-size: clamp(64px, 12vw, 152px);
+  line-height: 0.88;
+  letter-spacing: 6px;
+  background: linear-gradient(
+    160deg,
+    #ffffff 0%,
+    var(--gold2) 28%,
+    var(--gold) 52%,
+    #fffbe0 75%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: riseIn 1s 0.3s both;
+}
+
+.hl-sub-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  animation: riseIn 1s 0.4s both;
+}
+.hl-sub-line {
+  flex: 1;
+  max-width: 90px;
+  height: 1px;
+  background: rgba(201,168,76,0.22);
+}
+.hl-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(12px, 1.5vw, 19px);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.35);
+}
+
+/* ── Description ────────────────────────────────── */
+.hero__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: rgba(240,236,228,0.42);
+  max-width: 520px;
+  line-height: 1.95;
+  margin: 28px 0 36px;
+  animation: riseIn 1s 0.5s both;
+}
+.hero__desc em {
+  color: rgba(240,236,228,0.8);
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ── Buttons ────────────────────────────────────── */
+.hero__btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: riseIn 1s 0.6s both;
+}
+
+.btn-gold {
+  position: relative;
+  padding: 15px 40px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.35s;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  transform: translateX(-101%);
+  transition: transform 0.4s ease;
+}
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-gold:hover { color: var(--bg); }
+.btn-gold span { position: relative; z-index: 1; }
+
+.btn-ghost {
+  padding: 15px 40px;
+  background: transparent;
+  border: 1px solid rgba(240,236,228,0.13);
+  color: rgba(240,236,228,0.42);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-ghost:hover {
+  border-color: rgba(240,236,228,0.35);
+  color: rgba(240,236,228,0.85);
+}
+
+/* ── Stats ──────────────────────────────────────── */
+.hero__stats {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  animation: riseIn 1s 0.7s both;
+}
+.hero__stat {
+  flex: 1;
+  padding: 16px 0;
+  text-align: center;
+  border-right: 1px solid rgba(201,168,76,0.08);
+  background: rgba(4,2,15,0.82);
+  backdrop-filter: blur(14px);
+  transition: background 0.3s;
+}
+.hero__stat:last-child { border-right: none; }
+.hero__stat:hover { background: rgba(201,168,76,0.06); }
+
+.stat__num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--gold2);
+}
+.stat__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.28);
+  margin-top: 3px;
+}
+
+/* ── Animations ─────────────────────────────────── */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────── */
+
+/* Large desktop — keep everything full */
+@media (min-width: 1280px) {
+  .hl-main { font-size: 152px; }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .hero__stat:nth-child(4),
+  .hero__stat:nth-child(5) { display: none; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+  .hero__inner { padding: 0 20px 100px; }
+  .hl-main { font-size: clamp(52px, 18vw, 80px); letter-spacing: 3px; }
+  .hl-top { font-size: 15px; letter-spacing: 5px; }
+  .hl-sub { font-size: 11px; letter-spacing: 5px; }
+  .hero__desc { font-size: 14px; }
+  .hero__btns { flex-direction: column; align-items: center; }
+  .btn-gold, .btn-ghost { width: 260px; text-align: center; }
+  .hero__stat:nth-child(4),
+  .hero__stat:nth-child(5) { display: none; }
+  .bracket { width: 18px; height: 18px; }
+}

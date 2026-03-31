@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
-import logo from "../assets/gc_logo.png";
+import logo from "../../assets/gc_logo.png";
 
 const navLinks = [
   { name: "Services", path: "/services" },
